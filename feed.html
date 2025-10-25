@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Feed - XTM1 Admin</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/feed.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="bg-circle circle-4"></div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>XTM<span class="logo-highlight">1</span> ADMIN</h2>
+                <p>Management Panel</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="jadwal.html" class="menu-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Kelola Jadwal</span>
+            </a>
+            <a href="feed.html" class="menu-item active">
+                <i class="fas fa-newspaper"></i>
+                <span>Kelola Feed</span>
+            </a>
+            <a href="galeri.html" class="menu-item">
+                <i class="fas fa-images"></i>
+                <span>Kelola Galeri</span>
+            </a>
+            <a href="anggota.html" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Data Anggota</span>
+            </a>
+            <a href="index.html" class="menu-item logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Kelola Feed & Berita</h1>
+                <p>Posting berita dan update kegiatan XTM1</p>
+            </div>
+            <div class="header-right">
+                <button class="btn-primary" id="tambahFeedBtn">
+                    <i class="fas fa-plus"></i>
+                    Posting Baru
+                </button>
+            </div>
+        </header>
+
+        <!-- Feed Management -->
+        <section class="management-section">
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select id="filterStatus">
+                        <option value="all">Semua Status</option>
+                        <option value="published">Published</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchFeed" placeholder="Cari judul feed...">
+                </div>
+            </div>
+
+            <!-- Feed Grid -->
+            <div class="feed-grid" id="feedGrid">
+                <!-- Feed cards akan di-load di sini -->
+                <div class="feed-card">
+                    <div class="feed-image">
+                        <img src="https://via.placeholder.com/400x200?text=Projek+Robot" alt="Projek Robot">
+                        <div class="feed-status published">Published</div>
+                    </div>
+                    <div class="feed-content">
+                        <h3 class="feed-title">Projek Robot Pemilah Barang Berhasil!</h3>
+                        <p class="feed-excerpt">Tim XTM1 berhasil menyelesaikan projek robot pemilah barang otomatis dengan menggunakan sensor warna dan mikrokontroler Arduino.</p>
+                        <div class="feed-meta">
+                            <span class="feed-author"><i class="fas fa-user"></i> Admin XTM1</span>
+                            <span class="feed-date"><i class="fas fa-calendar"></i> 15 Jan 2024</span>
+                            <span class="feed-views"><i class="fas fa-eye"></i> 156</span>
+                        </div>
+                    </div>
+                    <div class="feed-actions">
+                        <button class="btn-edit" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-delete" title="Hapus">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="btn-preview" title="Preview">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyFeed" style="display: none;">
+                <i class="fas fa-newspaper"></i>
+                <h3>Belum Ada Feed</h3>
+                <p>Mulai dengan membuat postingan feed pertama Anda</p>
+                <button class="btn-primary" id="addFirstFeed">
+                    <i class="fas fa-plus"></i>
+                    Buat Feed Pertama
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Tambah/Edit Feed -->
+    <div class="modal" id="feedModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Buat Feed Baru</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="feedForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="inputJudul">Judul Feed</label>
+                        <input type="text" id="inputJudul" name="judul" required placeholder="Masukkan judul yang menarik...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputKonten">Konten</label>
+                        <textarea id="inputKonten" name="konten" rows="8" required placeholder="Tulis konten feed di sini..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputGambar">Gambar Thumbnail</label>
+                            <div class="file-upload">
+                                <input type="file" id="inputGambar" name="gambar" accept="image/*">
+                                <label for="inputGambar" class="file-upload-label">
+                                    <i class="fas fa-upload"></i>
+                                    <span>Pilih Gambar</span>
+                                </label>
+                                <div class="file-preview" id="filePreview"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputStatus">Status</label>
+                            <select id="inputStatus" name="status">
+                                <option value="published">Published</option>
+                                <option value="draft">Draft</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelModal">Batal</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i>
+                        Simpan Feed
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+    <script src="assets/js/feed.js"></script>
+</body>
+</html>
