@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Jadwal - XTM1 Admin</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="bg-circle circle-4"></div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>XTM<span class="logo-highlight">1</span> ADMIN</h2>
+                <p>Management Panel</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="jadwal.html" class="menu-item active">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Kelola Jadwal</span>
+            </a>
+            <a href="feed.html" class="menu-item">
+                <i class="fas fa-newspaper"></i>
+                <span>Kelola Feed</span>
+            </a>
+            <a href="galeri.html" class="menu-item">
+                <i class="fas fa-images"></i>
+                <span>Kelola Galeri</span>
+            </a>
+            <div class="menu-section">
+                <span>Pengaturan</span>
+            </div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Data Anggota</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Pengaturan Website</span>
+            </a>
+            <a href="index.html" class="menu-item logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Kelola Jadwal Pelajaran</h1>
+                <p>Atur jadwal pelajaran kelas XTM1</p>
+            </div>
+            <div class="header-right">
+                <button class="btn-primary" id="tambahJadwalBtn">
+                    <i class="fas fa-plus"></i>
+                    Tambah Jadwal
+                </button>
+            </div>
+        </header>
+
+        <!-- Jadwal Management -->
+        <section class="management-section">
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Filter Hari:</label>
+                    <select id="filterHari">
+                        <option value="all">Semua Hari</option>
+                        <option value="Senin">Senin</option>
+                        <option value="Selasa">Selasa</option>
+                        <option value="Rabu">Rabu</option>
+                        <option value="Kamis">Kamis</option>
+                        <option value="Jumat">Jumat</option>
+                    </select>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchJadwal" placeholder="Cari mata pelajaran...">
+                </div>
+            </div>
+
+            <!-- Jadwal Table -->
+            <div class="table-container">
+                <table class="data-table" id="jadwalTable">
+                    <thead>
+                        <tr>
+                            <th>Hari</th>
+                            <th>Mata Pelajaran</th>
+                            <th>Waktu</th>
+                            <th>Guru</th>
+                            <th>Ruangan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data akan di-load dari database -->
+                        <tr>
+                            <td>Senin</td>
+                            <td>Pemrograman Mikrokontroler</td>
+                            <td>07:30 - 09:00</td>
+                            <td>Pak Ahmad, S.Kom</td>
+                            <td>Lab. Komputer</td>
+                            <td class="action-buttons">
+                                <button class="btn-edit" data-id="1">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-delete" data-id="1">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Data lainnya... -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyJadwal" style="display: none;">
+                <i class="fas fa-calendar-times"></i>
+                <h3>Belum Ada Jadwal</h3>
+                <p>Tambahkan jadwal pelajaran untuk memulai</p>
+                <button class="btn-primary" id="addFirstJadwal">
+                    <i class="fas fa-plus"></i>
+                    Tambah Jadwal Pertama
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Tambah/Edit Jadwal -->
+    <div class="modal" id="jadwalModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Tambah Jadwal Baru</h3>
+                <button class="modal-close" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="jadwalForm">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputHari">Hari</label>
+                            <select id="inputHari" name="hari" required>
+                                <option value="">Pilih Hari</option>
+                                <option value="Senin">Senin</option>
+                                <option value="Selasa">Selasa</option>
+                                <option value="Rabu">Rabu</option>
+                                <option value="Kamis">Kamis</option>
+                                <option value="Jumat">Jumat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMapel">Mata Pelajaran</label>
+                            <input type="text" id="inputMapel" name="mata_pelajaran" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputWaktuMulai">Waktu Mulai</label>
+                            <input type="time" id="inputWaktuMulai" name="waktu_mulai" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputWaktuSelesai">Waktu Selesai</label>
+                            <input type="time" id="inputWaktuSelesai" name="waktu_selesai" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inputGuru">Nama Guru</label>
+                            <input type="text" id="inputGuru" name="guru" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputRuangan">Ruangan</label>
+                            <input type="text" id="inputRuangan" name="ruangan" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-secondary" id="cancelModal">Batal</button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i>
+                        Simpan Jadwal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
