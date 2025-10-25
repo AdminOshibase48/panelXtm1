@@ -11,16 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
         case '':
             initLoginPage();
             break;
-        case 'dashboard.html':
+        case 'dashboard':
             initDashboard();
             break;
-        case 'jadwal.html':
+        case 'jadwal':
             initJadwalManagement();
             break;
-        case 'feed.html':
+        case 'feed':
             initFeedManagement();
             break;
-        case 'galeri.html':
+        case 'galeri':
             initGaleriManagement();
             break;
     }
