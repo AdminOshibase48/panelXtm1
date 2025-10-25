@@ -1,0 +1,235 @@
+/* ===== GALERI MANAGEMENT STYLES ===== */
+.galeri-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.galeri-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.galeri-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.galeri-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.galeri-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.galeri-card:hover .galeri-image img {
+    transform: scale(1.05);
+}
+
+.galeri-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.galeri-card:hover .galeri-overlay {
+    opacity: 1;
+}
+
+.galeri-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.galeri-actions button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.btn-view {
+    background: rgba(116, 185, 255, 0.9);
+    color: white;
+}
+
+.btn-view:hover {
+    background: #74b9ff;
+    transform: scale(1.1);
+}
+
+.galeri-info {
+    padding: 16px;
+}
+
+.galeri-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.galeri-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.galeri-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.galeri-category {
+    padding: 4px 10px;
+    background: var(--accent-orange);
+    color: white;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.galeri-date {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--border-color);
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.upload-area:hover {
+    border-color: var(--accent-orange);
+    background: rgba(255, 109, 0, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--accent-orange);
+    background: rgba(255, 109, 0, 0.1);
+    transform: scale(1.02);
+}
+
+.upload-area i {
+    font-size: 3rem;
+    color: var(--accent-orange);
+    margin-bottom: 16px;
+}
+
+.upload-area h4 {
+    margin-bottom: 8px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.upload-area p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+/* Image Preview Large */
+.image-preview-large {
+    position: relative;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+}
+
+.image-preview-large img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+/* Preview Modal */
+.modal-content.large {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.preview-container {
+    text-align: center;
+}
+
+.preview-container img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .galeri-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .galeri-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 16px;
+    }
+    
+    .galeri-image {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .galeri-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .galeri-info {
+        padding: 12px;
+    }
+    
+    .upload-area {
+        padding: 30px 15px;
+    }
+    
+    .upload-area i {
+        font-size: 2.5rem;
+    }
+}
