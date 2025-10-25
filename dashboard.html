@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - XTM1 Space</title>
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-circle circle-1"></div>
+        <div class="bg-circle circle-2"></div>
+        <div class="bg-circle circle-3"></div>
+        <div class="bg-circle circle-4"></div>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="admin-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <h2>XTM<span class="logo-highlight">1</span> ADMIN</h2>
+                <p>Management Panel</p>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item active">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="jadwal.html" class="menu-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Kelola Jadwal</span>
+            </a>
+            <a href="feed.html" class="menu-item">
+                <i class="fas fa-newspaper"></i>
+                <span>Kelola Feed</span>
+            </a>
+            <a href="galeri.html" class="menu-item">
+                <i class="fas fa-images"></i>
+                <span>Kelola Galeri</span>
+            </a>
+            <div class="menu-section">
+                <span>Pengaturan</span>
+            </div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>Data Anggota</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Pengaturan Website</span>
+            </a>
+            <a href="index.html" class="menu-item logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Keluar</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <h1>Dashboard Admin</h1>
+                <p>Selamat datang di panel management XTM1</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="user-details">
+                        <span class="user-name">Admin XTM1</span>
+                        <span class="user-role">Wali Kelas</span>
+                    </div>
+                </div>
+                <div class="notification-bell">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Stats -->
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon primary">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalJadwal">16</h3>
+                    <p>Jadwal Pelajaran</p>
+                </div>
+                <div class="stat-trend">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>Updated</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon success">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalFeed">5</h3>
+                    <p>Postingan Feed</p>
+                </div>
+                <div class="stat-trend">
+                    <i class="fas fa-eye"></i>
+                    <span>Active</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon warning">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalGaleri">12</h3>
+                    <p>Gambar Galeri</p>
+                </div>
+                <div class="stat-trend">
+                    <i class="fas fa-upload"></i>
+                    <span>Ready</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon danger">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalAnggota">41</h3>
+                    <p>Anggota Kelas</p>
+                </div>
+                <div class="stat-trend">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Complete</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="actions-grid">
+                <a href="jadwal.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <h4>Tambah Jadwal</h4>
+                    <p>Buat jadwal pelajaran baru</p>
+                </a>
+
+                <a href="feed.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h4>Posting Feed</h4>
+                    <p>Buat postingan baru</p>
+                </a>
+
+                <a href="galeri.html" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-upload"></i>
+                    </div>
+                    <h4>Upload Galeri</h4>
+                    <p>Tambah gambar galeri</p>
+                </a>
+
+                <a href="#" class="action-card">
+                    <div class="action-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h4>Update Data</h4>
+                    <p>Refresh semua data</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Recent Activity -->
+        <section class="recent-activity">
+            <div class="activity-header">
+                <h2>Aktivitas Terbaru</h2>
+                <button class="view-all-btn">Lihat Semua</button>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon success">
+                        <i class="fas fa-calendar-plus"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Jadwal Baru Ditambahkan</h4>
+                        <p>Pemrograman Mikrokontroler - Senin 07:30</p>
+                        <span class="activity-time">2 menit yang lalu</span>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon primary">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Feed Diperbarui</h4>
+                        <p>Postingan "Projek Robot" telah diupdate</p>
+                        <span class="activity-time">1 jam yang lalu</span>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon warning">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Gambar Diupload</h4>
+                        <p>Foto dokumentasi praktikum ditambahkan</p>
+                        <span class="activity-time">3 jam yang lalu</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
