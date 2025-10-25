@@ -89,7 +89,7 @@ function simulateLogin(username, password) {
             
             // Redirect to dashboard
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = 'dashboard';
             }, 1500);
         } else {
             showNotification('Username atau password salah!', 'error');
