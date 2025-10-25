@@ -51,6 +51,13 @@
                 <i class="fas fa-users"></i>
                 <span>Data Anggota</span>
             </a>
+            <div class="menu-section">
+                <span>Pengaturan</span>
+            </div>
+            <a href="#" class="menu-item">
+                <i class="fas fa-cog"></i>
+                <span>Pengaturan Website</span>
+            </a>
             <a href="index.html" class="menu-item logout">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Keluar</span>
@@ -63,8 +70,8 @@
         <!-- Top Header -->
         <header class="admin-header">
             <div class="header-left">
-                <h1>Kelola Galeri Foto</h1>
-                <p>Upload dan kelola dokumentasi kegiatan XTM1</p>
+                <h1>Kelola Galeri</h1>
+                <p>Kelola gambar dan foto dokumentasi XTM1</p>
             </div>
             <div class="header-right">
                 <button class="btn-primary" id="tambahGaleriBtn">
@@ -82,15 +89,15 @@
                     <label>Kategori:</label>
                     <select id="filterKategori">
                         <option value="all">Semua Kategori</option>
-                        <option value="praktikum">Praktikum</option>
-                        <option value="projek">Projek</option>
                         <option value="kegiatan">Kegiatan</option>
-                        <option value="prestasi">Prestasi</option>
+                        <option value="projek">Projek</option>
+                        <option value="praktikum">Praktikum</option>
+                        <option value="lainnya">Lainnya</option>
                     </select>
                 </div>
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchGaleri" placeholder="Cari judul gambar...">
+                    <input type="text" id="searchGaleri" placeholder="Cari gambar...">
                 </div>
             </div>
 
@@ -99,50 +106,27 @@
                 <!-- Gambar akan di-load di sini -->
                 <div class="galeri-card">
                     <div class="galeri-image">
-                        <img src="https://via.placeholder.com/300x200?text=Robot+Project" alt="Robot Project">
+                        <img src="https://via.placeholder.com/400x300?text=Sample+Image" alt="Sample Image">
                         <div class="galeri-overlay">
-                            <button class="btn-view" title="Lihat">
-                                <i class="fas fa-expand"></i>
-                            </button>
-                            <button class="btn-edit" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-delete" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            <div class="galeri-actions">
+                                <button class="btn-edit" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-delete" title="Hapus">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <button class="btn-view" title="Lihat">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <div class="galeri-info">
-                        <h4 class="galeri-title">Projek Robot Pemilah</h4>
-                        <p class="galeri-desc">Robot untuk memilah barang berdasarkan warna</p>
+                        <h3 class="galeri-title">Robot Pemilah Barang</h3>
+                        <p class="galeri-desc">Projek robot untuk memilah barang berdasarkan warna</p>
                         <div class="galeri-meta">
-                            <span class="galeri-category praktikum">Praktikum</span>
-                            <span class="galeri-date">12 Jan 2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="galeri-card">
-                    <div class="galeri-image">
-                        <img src="https://via.placeholder.com/300x200?text=Lab+Mekatronika" alt="Lab Mekatronika">
-                        <div class="galeri-overlay">
-                            <button class="btn-view" title="Lihat">
-                                <i class="fas fa-expand"></i>
-                            </button>
-                            <button class="btn-edit" title="Edit">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn-delete" title="Hapus">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="galeri-info">
-                        <h4 class="galeri-title">Aktivitas di Lab</h4>
-                        <p class="galeri-desc">Siswa sedang praktikum mikrokontroler</p>
-                        <div class="galeri-meta">
-                            <span class="galeri-category kegiatan">Kegiatan</span>
-                            <span class="galeri-date">10 Jan 2024</span>
+                            <span class="galeri-category">Projek</span>
+                            <span class="galeri-date">15 Jan 2024</span>
                         </div>
                     </div>
                 </div>
@@ -152,7 +136,7 @@
             <div class="empty-state" id="emptyGaleri" style="display: none;">
                 <i class="fas fa-images"></i>
                 <h3>Belum Ada Gambar</h3>
-                <p>Upload gambar pertama untuk galeri XTM1</p>
+                <p>Upload gambar pertama ke galeri</p>
                 <button class="btn-primary" id="addFirstGaleri">
                     <i class="fas fa-upload"></i>
                     Upload Gambar Pertama
@@ -175,28 +159,37 @@
                     <div class="upload-area" id="uploadArea">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h4>Drop gambar di sini atau klik untuk upload</h4>
-                        <p>Format: JPG, PNG, GIF (Max 5MB)</p>
+                        <p>Format: JPG, PNG, GIF (Maks. 5MB)</p>
                         <input type="file" id="inputGambar" name="gambar" accept="image/*" hidden>
+                        <button type="button" class="btn-secondary" id="browseBtn">
+                            Pilih Gambar
+                        </button>
                     </div>
-                    <div class="image-preview" id="imagePreview"></div>
+
+                    <div class="image-preview-large" id="imagePreview" style="display: none;">
+                        <img id="previewImage" src="" alt="Preview">
+                        <button type="button" id="removeImage" class="btn-remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
 
                     <div class="form-group">
-                        <label for="inputJudulGaleri">Judul Gambar</label>
-                        <input type="text" id="inputJudulGaleri" name="judul" required placeholder="Berikan judul yang deskriptif...">
+                        <label for="inputJudul">Judul Gambar</label>
+                        <input type="text" id="inputJudul" name="judul" required placeholder="Masukkan judul gambar...">
                     </div>
 
                     <div class="form-group">
                         <label for="inputDeskripsi">Deskripsi</label>
-                        <textarea id="inputDeskripsi" name="deskripsi" rows="4" placeholder="Deskripsi singkat tentang gambar..."></textarea>
+                        <textarea id="inputDeskripsi" name="deskripsi" rows="3" placeholder="Deskripsi gambar (opsional)..."></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="inputKategori">Kategori</label>
                         <select id="inputKategori" name="kategori">
-                            <option value="praktikum">Praktikum</option>
-                            <option value="projek">Projek</option>
                             <option value="kegiatan">Kegiatan</option>
-                            <option value="prestasi">Prestasi</option>
+                            <option value="projek">Projek</option>
+                            <option value="praktikum">Praktikum</option>
+                            <option value="lainnya">Lainnya</option>
                         </select>
                     </div>
                 </div>
@@ -213,22 +206,16 @@
 
     <!-- Modal Preview Gambar -->
     <div class="modal" id="previewModal">
-        <div class="modal-content preview-content">
+        <div class="modal-content large">
             <div class="modal-header">
-                <h3>Preview Gambar</h3>
+                <h3 id="previewTitle">Preview Gambar</h3>
                 <button class="modal-close" id="closePreview">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <img id="previewImage" src="" alt="Preview">
-                <div class="preview-info">
-                    <h4 id="previewTitle"></h4>
-                    <p id="previewDesc"></p>
-                    <div class="preview-meta">
-                        <span id="previewCategory"></span>
-                        <span id="previewDate"></span>
-                    </div>
+                <div class="preview-container">
+                    <img id="fullPreviewImage" src="" alt="Preview Full">
                 </div>
             </div>
         </div>
