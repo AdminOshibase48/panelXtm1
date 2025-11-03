@@ -77,63 +77,45 @@
                     <i class="fas fa-plus"></i>
                     Tambah Jadwal
                 </button>
+                <button class="btn-secondary" id="resetJadwalBtn">
+                    <i class="fas fa-sync"></i>
+                    Reset Semua
+                </button>
             </div>
         </header>
 
         <!-- Jadwal Management -->
         <section class="management-section">
-            <!-- Filter Controls -->
-            <div class="filter-controls">
-                <div class="filter-group">
-                    <label>Filter Hari:</label>
-                    <select id="filterHari">
-                        <option value="all">Semua Hari</option>
-                        <option value="Senin">Senin</option>
-                        <option value="Selasa">Selasa</option>
-                        <option value="Rabu">Rabu</option>
-                        <option value="Kamis">Kamis</option>
-                        <option value="Jumat">Jumat</option>
-                    </select>
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <div class="action-card" data-day="senin">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Senin</span>
                 </div>
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchJadwal" placeholder="Cari mata pelajaran...">
+                <div class="action-card" data-day="selasa">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Selasa</span>
+                </div>
+                <div class="action-card" data-day="rabu">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Rabu</span>
+                </div>
+                <div class="action-card" data-day="kamis">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Kamis</span>
+                </div>
+                <div class="action-card" data-day="jumat">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>Jumat</span>
                 </div>
             </div>
 
-            <!-- Jadwal Table -->
-            <div class="table-container">
-                <table class="data-table" id="jadwalTable">
-                    <thead>
-                        <tr>
-                            <th>Hari</th>
-                            <th>Mata Pelajaran</th>
-                            <th>Waktu</th>
-                            <th>Guru</th>
-                            <th>Ruangan</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data akan di-load dari database -->
-                        <tr>
-                            <td>Senin</td>
-                            <td>Pemrograman Mikrokontroler</td>
-                            <td>07:30 - 09:00</td>
-                            <td>Pak Ahmad, S.Kom</td>
-                            <td>Lab. Komputer</td>
-                            <td class="action-buttons">
-                                <button class="btn-edit" data-id="1">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn-delete" data-id="1">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Data lainnya... -->
-                    </tbody>
-                </table>
+            <!-- Jadwal Container -->
+            <div class="jadwal-container" id="jadwalContainer">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Memuat jadwal dari database...</p>
+                </div>
             </div>
 
             <!-- Empty State -->
@@ -160,44 +142,36 @@
             </div>
             <form id="jadwalForm">
                 <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="inputHari">Hari</label>
-                            <select id="inputHari" name="hari" required>
-                                <option value="">Pilih Hari</option>
-                                <option value="Senin">Senin</option>
-                                <option value="Selasa">Selasa</option>
-                                <option value="Rabu">Rabu</option>
-                                <option value="Kamis">Kamis</option>
-                                <option value="Jumat">Jumat</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputMapel">Mata Pelajaran</label>
-                            <input type="text" id="inputMapel" name="mata_pelajaran" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputHari">Hari</label>
+                        <select id="inputHari" name="hari" required>
+                            <option value="">Pilih Hari</option>
+                            <option value="senin">Senin</option>
+                            <option value="selasa">Selasa</option>
+                            <option value="rabu">Rabu</option>
+                            <option value="kamis">Kamis</option>
+                            <option value="jumat">Jumat</option>
+                        </select>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="inputWaktuMulai">Waktu Mulai</label>
-                            <input type="time" id="inputWaktuMulai" name="waktu_mulai" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputWaktuSelesai">Waktu Selesai</label>
-                            <input type="time" id="inputWaktuSelesai" name="waktu_selesai" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputMapel">Mata Pelajaran</label>
+                        <input type="text" id="inputMapel" name="mata_pelajaran" required placeholder="Contoh: Matematika">
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="inputGuru">Nama Guru</label>
-                            <input type="text" id="inputGuru" name="guru" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputRuangan">Ruangan</label>
-                            <input type="text" id="inputRuangan" name="ruangan" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="inputWaktu">Waktu</label>
+                        <input type="text" id="inputWaktu" name="waktu" required placeholder="Contoh: 07:00 - 08:30">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputGuru">Nama Guru</label>
+                        <input type="text" id="inputGuru" name="guru" required placeholder="Contoh: Pak Andi">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputRuangan">Ruangan</label>
+                        <input type="text" id="inputRuangan" name="ruangan" required placeholder="Contoh: R. 2.1">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -211,6 +185,299 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+
     <script src="assets/js/admin.js"></script>
+
+    <!-- Firebase Admin Script -->
+    <script>
+        // Firebase Configuration - GANTI INI!
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlv1vOjzQyUM7yY89Cb40o79PIT6AiuYc",
+            authDomain: "xtm1-79048.firebaseapp.com",
+            databaseURL: "https://your-project.firebaseio.com",
+            projectId: "xtm1-79048",
+            storageBucket: "xtm1-79048.firebasestorage.app",
+            messagingSenderId: "36588922230",
+            appId: "1:36588922230:web:28ed2d2dc9f58ec9f6c657"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Jadwal Admin Manager
+        class JadwalAdminManager {
+            constructor() {
+                this.currentEditId = null;
+                this.currentDay = null;
+                this.init();
+            }
+
+            init() {
+                this.loadJadwalFromFirebase();
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                // Tambah Jadwal Button
+                document.getElementById('tambahJadwalBtn').addEventListener('click', () => this.showModal());
+                document.getElementById('addFirstJadwal').addEventListener('click', () => this.showModal());
+                
+                // Reset Button
+                document.getElementById('resetJadwalBtn').addEventListener('click', () => this.resetAllJadwal());
+                
+                // Quick Actions
+                document.querySelectorAll('.action-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const day = e.currentTarget.dataset.day;
+                        this.showModalForDay(day);
+                    });
+                });
+
+                // Modal Events
+                document.getElementById('closeModal').addEventListener('click', () => this.hideModal());
+                document.getElementById('cancelModal').addEventListener('click', () => this.hideModal());
+                
+                // Form Submit
+                document.getElementById('jadwalForm').addEventListener('submit', (e) => this.saveJadwal(e));
+            }
+
+            async loadJadwalFromFirebase() {
+                try {
+                    const snapshot = await database.ref('jadwal').once('value');
+                    const jadwal = snapshot.val();
+                    this.displayJadwal(jadwal);
+                } catch (error) {
+                    console.error('Error loading jadwal:', error);
+                    this.showError('Gagal memuat jadwal: ' + error.message);
+                }
+            }
+
+            displayJadwal(jadwal) {
+                const container = document.getElementById('jadwalContainer');
+                const emptyState = document.getElementById('emptyJadwal');
+
+                if (!jadwal || Object.keys(jadwal).length === 0) {
+                    container.innerHTML = '';
+                    emptyState.style.display = 'block';
+                    return;
+                }
+
+                emptyState.style.display = 'none';
+
+                let html = '';
+                const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
+                const dayNames = {
+                    'senin': 'Senin',
+                    'selasa': 'Selasa',
+                    'rabu': 'Rabu',
+                    'kamis': 'Kamis',
+                    'jumat': 'Jumat'
+                };
+
+                days.forEach(day => {
+                    const dayJadwal = jadwal[day] || [];
+                    
+                    html += `
+                        <div class="day-section">
+                            <div class="day-header">
+                                <h3>${dayNames[day]}</h3>
+                                <button class="btn-small" onclick="jadwalAdmin.showModalForDay('${day}')">
+                                    <i class="fas fa-plus"></i> Tambah
+                                </button>
+                            </div>
+                            <div class="lesson-list">
+                                ${dayJadwal.length > 0 ? 
+                                    dayJadwal.map((lesson, index) => `
+                                        <div class="lesson-item">
+                                            <div class="lesson-info">
+                                                <div class="lesson-time">${lesson.waktu || ''}</div>
+                                                <div class="lesson-details">
+                                                    <h4>${lesson.matkul || ''}</h4>
+                                                    <p>${lesson.dosen || ''} - ${lesson.ruang || ''}</p>
+                                                </div>
+                                            </div>
+                                            <div class="lesson-actions">
+                                                <button class="btn-edit" onclick="jadwalAdmin.editJadwal('${day}', ${index})">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn-delete" onclick="jadwalAdmin.deleteJadwal('${day}', ${index})">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `).join('') 
+                                    : 
+                                    '<div class="empty-lesson">Belum ada jadwal</div>'
+                                }
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML = html;
+            }
+
+            showModal(day = null) {
+                this.currentDay = day;
+                this.currentEditId = null;
+                
+                const modal = document.getElementById('jadwalModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const form = document.getElementById('jadwalForm');
+                
+                if (day) {
+                    modalTitle.textContent = `Tambah Jadwal ${this.getDayName(day)}`;
+                    document.getElementById('inputHari').value = day;
+                } else {
+                    modalTitle.textContent = 'Tambah Jadwal Baru';
+                }
+                
+                form.reset();
+                modal.style.display = 'block';
+            }
+
+            showModalForDay(day) {
+                this.showModal(day);
+            }
+
+            hideModal() {
+                document.getElementById('jadwalModal').style.display = 'none';
+                this.currentEditId = null;
+                this.currentDay = null;
+            }
+
+            async saveJadwal(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const jadwalData = {
+                    matkul: formData.get('mata_pelajaran'),
+                    waktu: formData.get('waktu'),
+                    dosen: formData.get('guru'),
+                    ruang: formData.get('ruangan')
+                };
+
+                const hari = formData.get('hari');
+
+                try {
+                    // Get current jadwal for the day
+                    const snapshot = await database.ref(`jadwal/${hari}`).once('value');
+                    const currentJadwal = snapshot.val() || [];
+
+                    if (this.currentEditId !== null) {
+                        // Edit existing
+                        currentJadwal[this.currentEditId] = jadwalData;
+                    } else {
+                        // Add new
+                        currentJadwal.push(jadwalData);
+                    }
+
+                    // Save to Firebase
+                    await database.ref(`jadwal/${hari}`).set(currentJadwal);
+                    
+                    this.showSuccess(
+                        this.currentEditId !== null ? 
+                        'Jadwal berhasil diupdate!' : 
+                        'Jadwal berhasil ditambahkan!'
+                    );
+                    
+                    this.hideModal();
+                    this.loadJadwalFromFirebase();
+                    
+                } catch (error) {
+                    console.error('Error saving jadwal:', error);
+                    this.showError('Gagal menyimpan jadwal: ' + error.message);
+                }
+            }
+
+            async editJadwal(day, index) {
+                try {
+                    const snapshot = await database.ref(`jadwal/${day}`).once('value');
+                    const jadwalHari = snapshot.val();
+                    
+                    if (jadwalHari && jadwalHari[index]) {
+                        const lesson = jadwalHari[index];
+                        
+                        // Fill form with existing data
+                        document.getElementById('inputHari').value = day;
+                        document.getElementById('inputMapel').value = lesson.matkul || '';
+                        document.getElementById('inputWaktu').value = lesson.waktu || '';
+                        document.getElementById('inputGuru').value = lesson.dosen || '';
+                        document.getElementById('inputRuangan').value = lesson.ruang || '';
+                        
+                        this.currentEditId = index;
+                        this.currentDay = day;
+                        
+                        document.getElementById('modalTitle').textContent = 'Edit Jadwal';
+                        document.getElementById('jadwalModal').style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Error editing jadwal:', error);
+                    this.showError('Gagal mengedit jadwal');
+                }
+            }
+
+            async deleteJadwal(day, index) {
+                if (confirm('Apakah Anda yakin ingin menghapus jadwal ini?')) {
+                    try {
+                        const snapshot = await database.ref(`jadwal/${day}`).once('value');
+                        const jadwalHari = snapshot.val();
+                        
+                        if (jadwalHari) {
+                            jadwalHari.splice(index, 1);
+                            await database.ref(`jadwal/${day}`).set(jadwalHari);
+                            
+                            this.showSuccess('Jadwal berhasil dihapus!');
+                            this.loadJadwalFromFirebase();
+                        }
+                    } catch (error) {
+                        console.error('Error deleting jadwal:', error);
+                        this.showError('Gagal menghapus jadwal');
+                    }
+                }
+            }
+
+            async resetAllJadwal() {
+                if (confirm('Apakah Anda yakin ingin menghapus SEMUA jadwal? Tindakan ini tidak dapat dibatalkan!')) {
+                    try {
+                        await database.ref('jadwal').remove();
+                        this.showSuccess('Semua jadwal berhasil direset!');
+                        this.loadJadwalFromFirebase();
+                    } catch (error) {
+                        console.error('Error resetting jadwal:', error);
+                        this.showError('Gagal mereset jadwal');
+                    }
+                }
+            }
+
+            getDayName(day) {
+                const names = {
+                    'senin': 'Senin',
+                    'selasa': 'Selasa',
+                    'rabu': 'Rabu',
+                    'kamis': 'Kamis',
+                    'jumat': 'Jumat'
+                };
+                return names[day] || day;
+            }
+
+            showSuccess(message) {
+                alert('SUKSES: ' + message);
+            }
+
+            showError(message) {
+                alert('ERROR: ' + message);
+            }
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            window.jadwalAdmin = new JadwalAdminManager();
+        });
+    </script>
 </body>
 </html>
